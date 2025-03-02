@@ -1,6 +1,7 @@
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
+import cors from 'cors';
 import 'dotenv/config';
 // var privateKey = fs.readFileSync('/etc/ssl/certs/floof.key', 'utf8');
 // var certificate = fs.readFileSync(
@@ -11,6 +12,8 @@ import 'dotenv/config';
 // var credentials = { key: privateKey, cert: certificate };
 import express from 'express';
 var app = express();
+
+app.use(cors());
 
 const redirect_uri = 'http://localhost/callback';
 
@@ -144,5 +147,5 @@ var httpServer = http.createServer(app);
 // var httpsServer = https.createServer(credentials, app);
 app.use(express.static('dist'));
 
-httpServer.listen(80);
+httpServer.listen(3000);
 // httpsServer.listen(443);

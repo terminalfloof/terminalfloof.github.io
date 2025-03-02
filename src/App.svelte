@@ -1,13 +1,24 @@
-<script>
-
+<script lang="ts">
 	import Particles from "./Particles.svelte";
-
+  let lastPlayed: {track: any} = {track: null};
+  // fetch data from /lastPlayed
+  fetch("http://localhost:3000/lastPlayed")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      lastPlayed = data;
+    });
 </script>
 <div>
   <h1>&gt; floof<span id="blink">_</span></h1>
   <h2>18, he/him</h2>
   <p>i like making things. not well though.</p>
   <p>projects coming... soon... probably</p>
+  {#if lastPlayed.track}
+      <p>last played: {lastPlayed.track.name} by {lastPlayed.track.artists.map((artist: any) => artist.name).join(", ")}</p>
+    {:else}
+      <p>last played: nothing</p>
+    {/if}
 </div>
 <Particles />
 
